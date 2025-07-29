@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ThreeDLite Gems</string>
+    <string name="wallpaper_threedlite_exotics">ThreeDLite Gems</string>
+    <string name="wallpaper_description">Beautiful animated 3D gems floating in space</string>
+    <string name="author">ThreeDLite</string>
+    <string name="settings_title">ThreeDLite Settings</string>
+</resources>
