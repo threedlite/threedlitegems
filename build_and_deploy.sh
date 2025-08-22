@@ -49,7 +49,7 @@ fi
 
 # Uninstall previous version if exists
 echo "Uninstalling previous version (if any)..."
-adb -s $DEVICE_IP uninstall com.threedlite.gems 2>/dev/null
+adb -s $DEVICE_IP uninstall com.threedlite.app 2>/dev/null
 
 # Install the APK
 echo "Installing APK..."
@@ -60,7 +60,7 @@ if [ $? -eq 0 ]; then
     
     # Launch the settings activity
     echo "Launching app..."
-    adb -s $DEVICE_IP shell am start -n com.threedlite.gems/.SettingsActivity
+    adb -s $DEVICE_IP shell am start -n com.threedlite.app/.SettingsActivity
     
     echo ""
     echo "✅ Deployment complete!"

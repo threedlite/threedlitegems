@@ -1,4 +1,4 @@
-package com.threedlite.gems;
+package com.threedlite.app;
 
 import android.content.SharedPreferences;
 import android.graphics.Canvas;

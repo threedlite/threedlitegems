@@ -1,52 +1,60 @@
-package com.threedlite.gems;
+package com.threedlite.app;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.Log;
 
-import com.threedlite.data.PolyData;
+import com.threedlite.model.StockObject;
 import com.threedlite.model.ThreeDObject;
 import com.threedlite.model.ThreeDPoint;
 import com.threedlite.model.ThreeDSprite;
 
-public class ThreeDLiteGemsWallpaper extends AbstractThreeDWallpaper {
+public class ThreeDLiteClassicWallpaper extends AbstractThreeDWallpaper {
 
-    private long startTime = System.currentTimeMillis();
-    private long intervalNumber = 0; 
     private List<ThreeDSprite> objects = new ArrayList<ThreeDSprite>();
-    private Context context;
 
-    public ThreeDLiteGemsWallpaper(Context context) {
-        this.context = context;
+    public ThreeDLiteClassicWallpaper() {
     }
 
     @Override
     public void reinit() {
+        reinit(600); // Default disperse value
+    }
+    
+    protected void reinit(int disperse) {
         try {
             initialized = false;
+            
             objects.clear();
 
-            ThreeDSprite sprite = null;
-            while (sprite == null) {
-                int n = (int)Math.floor(Math.random()*142);
-                try {
-                    sprite = PolyData.get(n, context);
-                    objects.add(sprite); 
-                } catch (Exception e) {
-                    // Unable to parse shape, try another
-                }
-            }
+            ThreeDSprite tetra = StockObject.TETRAHEDRON(100);
+            ThreeDSprite oct = StockObject.OCTAHEDRON(100);
+            ThreeDSprite cube = StockObject.CUBE(100);
+            ThreeDSprite ico = StockObject.ICOSAHEDRON(100);
+            ThreeDSprite dod = StockObject.DODECAHEDRON(100);
+            ThreeDSprite cubeoct = StockObject.CUBOCTAHEDRON(100);
+            ThreeDSprite rdod = StockObject.RHOMBIC_DODECAHEDRON(100);
+            ThreeDSprite sb = StockObject.SOCCER_BALL(100);
+            ThreeDSprite geo = StockObject.GEODESIC(100);
+
+            objects.add(tetra); 
+            objects.add(oct);   
+            objects.add(cube);  
+            objects.add(ico);    
+            objects.add(cubeoct); 
+            objects.add(rdod);   
+            objects.add(dod);    
+            objects.add(geo);    
+            objects.add(sb);     
 
             for (int i = 0; i < objects.size(); i++) {
                 ThreeDSprite object = objects.get(i);
-                object.translate(new ThreeDPoint(0, 0, i));
+                object.translate(new ThreeDPoint(rnd(disperse)-disperse*.5, rnd(disperse)-disperse*.5, (double)(10-i)));
                 object.velocity = new ThreeDPoint(rnd(6)-3, rnd(6)-3, 0);
                 object.rotationDirection = new ThreeDPoint(rnd(1), rnd(1), rnd(1));
                 object.rotationRate = ThreeDPoint.angleInRadians(rnd(5));
@@ -70,28 +78,17 @@ public class ThreeDLiteGemsWallpaper extends AbstractThreeDWallpaper {
         });
     }
 
-    private long getIntervalNumber(long time) {
-        BigDecimal d = new BigDecimal(time);
-        d = d.divide(new BigDecimal(1000 * 60f), BigDecimal.ROUND_DOWN);
-        return d.longValue();
-    }
-
     @Override
     public void draw(Canvas canvas) {
         try {
             if (!initialized) return;
-            
-            long currentInterval = getIntervalNumber(System.currentTimeMillis());
-            if (intervalNumber != currentInterval) {
-                intervalNumber = currentInterval;
-                reinit();
-            }
 
             canvas.drawColor(Color.BLACK);
+
             sortObjectArray(objects);  
 
-            int maxx = canvas.getWidth()/3;
-            int maxy = canvas.getHeight()/3;
+            int maxx = canvas.getWidth()/2;
+            int maxy = canvas.getHeight()/2;
             ThreeDSprite o;
             for (int k = 0; k < objects.size(); k++) {
                 o = objects.get(k); 

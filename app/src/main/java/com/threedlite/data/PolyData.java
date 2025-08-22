@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 import android.content.Context;
 
-import com.threedlite.gems.R;
+import com.threedlite.app.R;
 import com.threedlite.model.ThreeDPoint;
 import com.threedlite.model.ThreeDSprite;
 

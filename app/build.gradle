@@ -8,15 +8,15 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace 'com.threedlite.gems'
-    compileSdk 36
+    namespace 'com.threedlite.app'
+    compileSdk 34
 
     defaultConfig {
-        applicationId "com.threedlite.gems"
+        applicationId "com.threedlite.app"
         minSdk 21  // Android 5.0 minimum for Play Store
-        targetSdk 36  // Android 16 (API 36)
+        targetSdk 34  // Android 14
         versionCode 4
-        versionName "3.1"
+        versionName "4.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
